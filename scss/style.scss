@@ -1,0 +1,34 @@
+@import 'perch';
+
+.boxes {
+  $children: (
+    box: ".box",
+    big: ".box--big"
+  );
+
+  @include perch($children, (
+    'default': (
+      layout: "^-^>",
+      box: 1 0 25%,
+      big: 2 0 100%
+    ),
+
+    '<=700px': (
+      layout: "^-^>(50%)"
+    ),
+
+    '<=550px': (
+      layout: "=+=(100%)"
+    )
+
+  ))
+}
+
+.box {
+  $children: (
+    text: "&__text",
+    button: "&__button",
+    img: "&__img"
+  );
+  @include perch($children, "+=+<" );
+}

@@ -1,0 +1,181 @@
+@import 'parse-helper';
+@import 'include-media';
+
+@mixin perch-string($children, $settings) {
+  $flex-direction: false;
+  $flex-wrap: false;
+  $justify-content: false;
+  $align-items: false;
+  $flex-flow: false;
+  $generic-flex-basis: false;
+
+  $layout: $settings;
+
+  // find flex direction: - , = 
+  @each $name, $char in $layout {
+    @if (str-index($name, '-')) {
+      $flex-direction: row;
+    }
+    @else if (str-index($name, '=')) {
+      $flex-direction: column;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+    }
+    @else {
+      $flex-direction: row;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+    }
+  }
+
+  // find flex wrap: - - - >
+  @each $name, $char in $layout {
+    @if (str-index($name, '>')) {
+      $flex-wrap: wrap;
+    } @else {
+      $flex-wrap: nowrap;
+    }
+  }
+
+  // find flex reverse: = = = <
+  @each $name, $char in $layout {
+    @if (str-index($name, '<')) {
+      $flex-direction: #{$flex-direction}-reverse;
+    } 
+  }
+
+  //find center-positioned layout
+  @each $name, $char in $layout {
+    @if (str-index($name, '+')) {
+      @if ($flex-direction == row) {
+        $align-items: center;
+      } @else {
+        $align-items: center;
+      }
+    } 
+  }
+
+  // find start-positioned layout
+  @each $name, $char in $layout {
+    @if (str-index($name, '^')) {
+      @if ($flex-direction == row) {
+        $align-items: flex-start;
+      } @else {
+        $align-items: flex-end;
+      }
+    } 
+  }
+
+  // find end-positioned layout
+  @each $name, $char in $layout {
+    @if (str-index($name, '_')) {
+      @if ($flex-direction == row) {
+        $align-items: flex-end;
+      } @else {
+        $align-items: flex-start;
+      }
+    } 
+  }
+
+  // find stretched layout
+  @each $name, $char in $layout {
+    @if (str-index($name, '|')) {
+      @if ($flex-direction == row) {
+        $align-items: stretch;
+      } @else {
+        $align-items: stretch;
+      }
+    } 
+  }
+
+  //evaluate string for additional positioning
+  $first-char: str-slice(quote($layout), 1,1);
+  $second-char: str-slice(quote($layout), 2,2);
+  $third-char: str-slice(quote($layout), 3,3);
+  $fourth-char: str-slice(quote($layout), 4,4);
+
+  @if ($flex-direction == row) {
+    @if ($first-char != '-' and $third-char == '-') {
+      $justify-content: flex-start;
+    }
+    @elseif ($second-char != '-' and $fourth-char == '') {
+      $justify-content: center;
+    }
+    @elseif ($first-char == '-' and $third-char != '-') {
+      $justify-content: flex-end;
+    }
+    @elseif ($first-char != '-' and $third-char != '-' and $fourth-char != '-') {
+      $justify-content: space-between;
+    }
+    @elseif ($first-char != '-' and $third-char != '-' and $fourth-char =='-') {
+      $justify-content: space-around;
+    }
+  }
+
+  @elseif ($flex-direction == column) {
+    @if ($first-char != '=' and $third-char == '=') {
+      $justify-content: flex-start;
+    }
+    @elseif ($second-char != '=' and $fourth-char == '') {
+      $justify-content: center;
+    }
+    @elseif ($first-char == '=' and $third-char != '=') {
+      $justify-content: flex-end;
+    }
+    @elseif ($first-char != '=' and $third-char != '=' and $fourth-char != '=') {
+      $justify-content: space-between;
+    }
+    @elseif ($first-char != '=' and $third-char != '=' and $fourth-char =='=') {
+      $justify-content: space-around;
+    }
+  }
+
+  //check for generic children flex-basis
+  @each $name, $char in $layout {
+    @if (str-index($name, '(')) {
+      $parsedLayout: str-replace($layout, $search:'(', $replace: '~');
+      $parsedLayout: str-replace($parsedLayout, $search:')', $replace: '~');
+      $parsedLayout: str-split($parsedLayout, '~');
+
+      $generic-flex-basis: nth($parsedLayout, 2); 
+      
+    } 
+  }
+
+    // render
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    @if ($flex-direction and $flex-wrap) {
+        $flex-flow: #{$flex-direction} #{$flex-wrap};
+    }
+      
+    @if ($justify-content) {
+      -webkit-justify-content: $justify-content;
+      -ms-flex-pack: $justify-content;
+      justify-content: $justify-content;
+      justify-content: $justify-content;
+    }
+     
+    @if ($align-items) {
+      -webkit-box-align: $align-items;
+      -ms-flex-align: $align-items;
+      -webkit-align-items: $align-items;
+      align-items: $align-items;
+    } 
+
+    @if ($flex-flow) {
+      flex-flow: $flex-flow;
+      -ms-flex-flow: $flex-flow;
+          flex-flow: $flex-flow;
+    }
+
+    @if ($generic-flex-basis) {
+      @each $child, $selector in $children {
+        #{$selector} {
+          flex-basis: unquote($generic-flex-basis);
+        }
+      }
+    }
+  }
