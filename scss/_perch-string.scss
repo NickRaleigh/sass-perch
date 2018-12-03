@@ -1,7 +1,7 @@
 @import 'parse-helper';
 @import 'include-media';
 
-@mixin perch-string($children, $settings) {
+@mixin perch-string($settings) {
   $flex-direction: false;
   $flex-wrap: false;
   $justify-content: false;
@@ -130,18 +130,6 @@
     }
   }
 
-  //check for generic children flex-basis
-  @each $name, $char in $layout {
-    @if (str-index($name, '(')) {
-      $parsedLayout: str-replace($layout, $search:'(', $replace: '~');
-      $parsedLayout: str-replace($parsedLayout, $search:')', $replace: '~');
-      $parsedLayout: str-split($parsedLayout, '~');
-
-      $generic-flex-basis: nth($parsedLayout, 2); 
-      
-    } 
-  }
-
     // render
     display: -webkit-box;
     display: -ms-flexbox;
@@ -171,11 +159,4 @@
           flex-flow: $flex-flow;
     }
 
-    @if ($generic-flex-basis) {
-      @each $child, $selector in $children {
-        #{$selector} {
-          flex-basis: unquote($generic-flex-basis);
-        }
-      }
-    }
   }

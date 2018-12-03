@@ -1,34 +1,19 @@
 @import 'perch';
 
-.boxes {
-  $children: (
-    box: ".box",
-    big: ".box--big"
-  );
-
-  @include perch($children, (
-    'default': (
-      layout: "^-^>",
-      box: 1 0 25%,
-      big: 2 0 100%
-    ),
-
-    '<=700px': (
-      layout: "^-^>(50%)"
-    ),
-
-    '<=550px': (
-      layout: "=+=(100%)"
-    )
-
-  ))
-}
-
 .box {
-  $children: (
-    text: "&__text",
-    button: "&__button",
-    img: "&__img"
-  );
-  @include perch($children, "+=+<" );
+  $children: ( heading: '&__heading', text: '&__text', link: '&__link');
+
+  // @include perch($children, (
+  //   'default': (
+  //     layout: "=+=",
+  //     heading: 0 0 100%,
+  //     text: 0 0 50%,
+  //     link: 0 0 10%,
+  //   ),
+
+  // ))
+  //
+  @include perch("=+=");
 }
+
+* { border: 1px solid pink;}

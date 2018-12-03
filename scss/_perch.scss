@@ -2,10 +2,10 @@
 @import 'include-media';
 @import 'perch-string';
 
-@mixin perch($children, $settingsObj) {
+@mixin perch($settingsObj, $children: false) {
 
   @if (type-of($settingsObj) == string) {
-    @include perch-string($children, $settingsObj)
+    @include perch-string($settingsObj)
   }
 
   @else {
