@@ -34,6 +34,41 @@ Setting the first three characters will always be our starting point when we mak
 
 Now what? We align and justify our items on our flexbox, using the three characters we started on. Use the diagram below to help you understand how this works. Basically, we'll be focusing in on character(s) that will tell our flexbox more information about our layout:
 ![diagram](http://nickraleigh.com/wp-content/uploads/2018/12/3.jpg)
-- note: on the space-around setting, we add an additional fourth charachter.
-We then replace the character(s) with one of three options:
-**`^`, `_`, `+`**
+note: on the space-around setting, we add an additional fourth charachter.
+
+We then replace the selected character(s) with one of three options:
+- `^` - Think of this as an 'up-arrow'
+- `_` - Use as a 'down-arrow'
+- `+` - Think 'centered'.
+
+### Row Examples:
+Here's a few examples:
+- `^--` - Outputs `display: flex; justify-content: flex-start; align-items: flex-start;`
+- `-+-` - Outputs `display: flex; justify-content: center; align-items: center;`
+- `_-_` - Outputs `display: flex; justify-content: space-between; align-items: flex-end`.
+
+We'll cover columns' behavior below.
+
+Here's where I think this mixin shines: even if the examples above didn't make sense, and you don't fully understand flexbox, visually looking at these expressions will give you an idea of what to expect on the front end. Let's look at the examples above again, and just comment on *what they look like*
+
+- `^--` - A thing on the far left that points upwards (that's exactly where our flex items will go!)
+- `-+-` - A thing in the middle (Whoa!)
+- `_-_` - Two things pointing downwards with a space inbetween them (Wow!)
+
+## Colum Examples:
+We use the `=` character when composing a flexbox with a flex-direction of column. Columns are a bit tricky since they are not horizontal, and don't have as easy of a solution, at first. To overcome this, while looking at a column expression with Sass-Perch, you need to *rotate* the expression 90 degrees with your brain software (🙈💿) to understand it:
+
+![diagram](http://nickraleigh.com/wp-content/uploads/2018/12/4.jpg)
+
+When we do this, our characters that set the flexbox also change:
+- `^` - Now is a 'right-arrow'
+- `_` - Now is a 'left-arrow'
+- `+` - Stays the same.
+
+Let's go through the examples from the diagram above:
+- `^==` (after we rotate) we have a character on top (`justify-content: flex-start`), pointing to the right (`align-items: flex-end`).
+- `=+=` (after we rotate) we have a centered(+) item (`jusfity-content: center`) situated in the middle (`align-items: center`).
+- `_=_=` (after we rotate) we have four characters (`justify-content: space-around`), and the two characters point to the left (`align-items: flex-start)`.
+
+This may seem a little odd at first, but with some practice, will become quite easy to read.
+
