@@ -1,7 +1,7 @@
 # Sass-Perch 🐦`=+=` Simple, Expressive CSS Flexbox Layouts
 
 ## Huh?
-Sass-Perch is a really easy-to-learn sass mixin that grabs all of the essentials of flexbox and turns it into a single visual expression. 
+Sass-Perch is an easy-to-learn sass mixin that grabs all of the essentials of flexbox and turns it into a single visual expression. 
 
 ## Why?
 - If you're like me and use flexbox a lot, you'll be writing the same rules over and over again( ie `display: flex;`, `flex-flow: row nowrap;`, `justify-content: flex-start;`, `align-items: center;`. This can be pretty tedious. 
