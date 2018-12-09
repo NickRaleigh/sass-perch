@@ -81,6 +81,10 @@ This may seem a little odd at first, but with some practice, will become quite e
 We can add a few more characters to the end of the expression that we made to change its behavior. These are:
 - `>` - Wrap - make your flexbox wrap. If you don't include this character, the default wrapping setting will be `nowrap`.
 - `<` - Reverse - reverse the order of your flexbox.
+examples:
+- `+-->`
+- `==_<`
+- `+==>`
 
 #### The Responsive Grid Modifier `()`
 Sometimes we want a basic grid of items, with equal-width columns that has a gap inbetween each item. This can be a pain with flexbox, as we have to worry about sizing each element, the margin inbetween, ignoring margins using `nth-child`, and so on. Sass-Perch does the heavy lifting for you. All you need to do is add a set of parenthesis to the end of your expression, and pass in the following arguments:
