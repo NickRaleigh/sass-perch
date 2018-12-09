@@ -42,7 +42,7 @@ We then replace the selected character(s) with one of four options:
 - `^` - Think of this as an 'up-arrow'
 - `_` - Use as a 'down-arrow'
 - `+` - Think 'centered'.
-- `|` - Stretched,
+- `|` - Stretched
 
 ### Row Examples:
 Here's a few examples:
@@ -83,6 +83,7 @@ This may seem a little odd at first, but with some practice, will become quite e
 We can add a few more characters to the end of the expression that we made to change its behavior. These are:
 - `>` - Wrap - make your flexbox wrap. If you don't include this character, the default wrapping setting will be `nowrap`.
 - `<` - Reverse - reverse the order of your flexbox.
+
 examples:
 - `+-->`
 - `==_<`
