@@ -1,19 +1,7 @@
 @import 'perch';
 
-.box {
-  $children: ( heading: '&__heading', text: '&__text', link: '&__link');
-
-  // @include perch($children, (
-  //   'default': (
-  //     layout: "=+=",
-  //     heading: 0 0 100%,
-  //     text: 0 0 50%,
-  //     link: 0 0 10%,
-  //   ),
-
-  // ))
-  //
-  @include perch("=+=");
+.o-article-grid {
 }
 
-* { border: 1px solid pink;}
+
+// * { border: 1px solid pink;}
