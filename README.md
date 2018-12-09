@@ -40,6 +40,7 @@ We then replace the selected character(s) with one of three options:
 - `^` - Think of this as an 'up-arrow'
 - `_` - Use as a 'down-arrow'
 - `+` - Think 'centered'.
+- `|` - Stretched,
 
 ### Row Examples:
 Here's a few examples:
@@ -55,7 +56,7 @@ Here's where I think this mixin shines: even if the examples above didn't make s
 - `-+-` - A thing in the middle (Whoa!)
 - `_-_` - Two things pointing downwards with a space inbetween them (Wow!)
 
-## Colum Examples:
+### Column Examples:
 We use the `=` character when composing a flexbox with a flex-direction of column. Columns are a bit tricky since they are not horizontal, and don't have as easy of a solution, at first. To overcome this, while looking at a column expression with Sass-Perch, you need to *rotate* the expression 90 degrees with your brain software (🙈💿) to understand it:
 
 ![diagram](http://nickraleigh.com/wp-content/uploads/2018/12/4.jpg)
@@ -64,6 +65,7 @@ When we do this, our characters that set the flexbox also change:
 - `^` - Now is a 'right-arrow'
 - `_` - Now is a 'left-arrow'
 - `+` - Stays the same.
+- `|` - Stays the same.
 
 Let's go through the examples from the diagram above:
 - `^==` (after we rotate) we have a character on top (`justify-content: flex-start`), pointing to the right (`align-items: flex-end`).
@@ -71,4 +73,14 @@ Let's go through the examples from the diagram above:
 - `_=_=` (after we rotate) we have four characters (`justify-content: space-around`), and the two characters point to the left (`align-items: flex-start)`.
 
 This may seem a little odd at first, but with some practice, will become quite easy to read.
+
+### Examples
+![diagram](http://nickraleigh.com/wp-content/uploads/2018/12/5.jpg)
+
+### Modifiers
+We can add a few more characters to the end of the expression that we made to change its behavior. These are:
+- `>` - Wrap - make your flexbox wrap. If you don't include this character, the default wrapping setting will be `nowrap`.
+- `<` - Reverse - reverse the order of your flexbox.
+
+#### The Responsive Grid Modifier `()`
 
