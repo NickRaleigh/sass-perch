@@ -20,3 +20,20 @@ Say we have a post on our website:
   <p>This is a description of this great article.</p>
 </div>
 ```
+
+Which outputs a pretty predictable set of block elements:
+![boring](http://nickraleigh.com/wp-content/uploads/2018/12/1.jpg)
+
+Next, we need to figure out if we want to use a layout on a *row* or on a *column*.
+
+**Setting the flex-direction to row is accomplished by setting the first three characters to: `('---')`**
+**Setting the flex-direction to column is accomplished by setting the first three characters to: `('===')`**
+
+Setting the first three characters will always be our starting point when we make a new layout.
+![basic perch](http://nickraleigh.com/wp-content/uploads/2018/12/2.jpg)
+
+Now what? We align and justify our items on our flexbox, using the three characters we started on. Use the diagram below to help you understand how this works. Basically, we'll be focusing in on character(s) that will tell our flexbox more information about our layout:
+![diagram](http://nickraleigh.com/wp-content/uploads/2018/12/3.jpg)
+- note: on the space-around setting, we add an additional fourth charachter.
+We then replace the character(s) with one of three options:
+**`^`, `_`, `+`**
