@@ -38,7 +38,7 @@ Now what? We align and justify our items on our flexbox, using the three charact
 ![diagram](http://nickraleigh.com/wp-content/uploads/2018/12/3.jpg)
 note: on the space-around setting, we add an additional fourth charachter.
 
-We then replace the selected character(s) with one of three options:
+We then replace the selected character(s) with one of four options:
 - `^` - Think of this as an 'up-arrow'
 - `_` - Use as a 'down-arrow'
 - `+` - Think 'centered'.
