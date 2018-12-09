@@ -5,7 +5,7 @@ Sass-Perch is an easy-to-learn sass mixin that grabs all of the essentials of fl
 
 ## Why?
 - If you're like me and use flexbox a lot, you'll be writing the same rules over and over again( ie `display: flex;`, `flex-flow: row nowrap;`, `justify-content: flex-start;`, `align-items: center;`. This eventually got on my nerves and I wanted a quicker solution. 
-- For a layout system, I think that flexbox isn't _at all_ helpful if you're a visual person. While scanning a set of CSS rules, it's  difficult to tell what a layout will look like without jumping back into the browser. Wouldn't it be nice if the code gave you a general idea of where things will go?
+- For a layout system, I think that flexbox isn't _at all_ helpful if you're a visual person. While scanning a set of CSS rules, it's  difficult to tell what a layout will look like without jumping back into the browser. Wouldn't it be nice if the code gave you a general idea of what your layout will look like?
 - Flexbox is downright **awful** at making decent responsive grids on its own. Why is it so hard to make a grid with _x_ number of columns on it, with a nice little gap inbetween each item??? 🤦‍♂️ Sass-Perch fixes this with a nice bit of added functionality (See the Responsive Grid Modifier below.)
 
 ## When should I use Sass-Perch?
