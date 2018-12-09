@@ -9,7 +9,7 @@ Sass-Perch is an easy-to-learn sass mixin that grabs all of the essentials of fl
 - Flexbox sucks at making decent responsive grids on its own. Why is it so hard to make a grid with _x_ number of columns on it, with a nice little gap inbetween each item??? 🤦‍♂️
 
 ## When should I use Sass-Perch?
-In almost any case that you find yourself using flexbox, _or_ put more technically, when you need a single-axis layout.
+In almost any case that you find yourself using flexbox.
 
 ## How?
 Sass-Perch is easily invoked using `@include perch($expression)` on a parent element. Let's walk through an example to get used to the syntax:
