@@ -93,7 +93,7 @@
   $third-char: str-slice(quote($layout), 3,3);
   $fourth-char: str-slice(quote($layout), 4,4);
 
-  @if ($flex-direction == row) {
+  @if ($flex-direction == row or $flex-direction == row-reverse) {
     @if ($first-char != '-' and $third-char == '-') {
       $justify-content: flex-start;
     }
@@ -111,7 +111,7 @@
     }
   }
 
-  @elseif ($flex-direction == column) {
+  @elseif ($flex-direction == column or $flex-direction == column-reverse) {
     @if ($first-char != '=' and $third-char == '=') {
       $justify-content: flex-start;
     }

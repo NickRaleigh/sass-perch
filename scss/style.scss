@@ -3,5 +3,9 @@
 .o-article-grid {
 }
 
+.o-article {
+  @include perch('+-+');
+}
 
-// * { border: 1px solid pink;}
+
+* { border: 1px solid pink;}
