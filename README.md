@@ -6,13 +6,13 @@ Sass-Perch is an easy-to-learn sass mixin that grabs all of the essentials of fl
 ## Why?
 - If you're like me and use flexbox a lot, you'll be writing the same rules over and over again( ie `display: flex;`, `flex-flow: row nowrap;`, `justify-content: flex-start;`, `align-items: center;`. This eventually got on my nerves and I wanted a quicker solution. 
 - For a layout system, I think that flexbox isn't _at all_ helpful if you're a visual person. While scanning a set of CSS rules, it's sometimes difficult to tell what a layout will look like without jumping back into the browser. Wouldn't it be nice if the code gave you a general idea of where things will go?
-- Flexbox sucks at making decent responsive grids on its own. Why is it so hard to make a grid with _x_ number of columns on it, with a nice little gap inbetween each item??? 🤦‍♂️
+- Flexbox is downright **awful** at making decent responsive grids on its own. Why is it so hard to make a grid with _x_ number of columns on it, with a nice little gap inbetween each item??? 🤦‍♂️
 
 ## When should I use Sass-Perch?
 In almost any case that you find yourself using flexbox.
 
 ## How?
-Sass-Perch is easily invoked using `@include perch($expression)` on a parent element. Let's walk through an example to get used to the syntax:
+Sass-Perch is easily invoked using `@include perch($expression)` on a parent element. It's important to pass the $expression argument as a string, or the mixin will think you're talking crazy. Let's walk through an example to get used to the syntax:
 
 Say we have a post on our website:
 ```
