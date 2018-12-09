@@ -4,7 +4,9 @@
 Sass-Perch is a really easy-to-learn sass mixin that grabs all of the essentials of flexbox and turns it into a single visual expression. 
 
 ## Why?
-If you're like me and use flexbox a lot, you'll be writing the same rules over and over again( ie `display: flex;` `flex-flow: row nowrap;` `justify-content: flex-start; align-items: center;`. This can be pretty tedious. Another reason: for a layout system, I think that flexbox isn't _at all_ helpful if you're a visual person. While scanning a set of CSS rules, it's sometimes difficult to tell what layout will result from a set of flexbox rules without jumping back into the browser. And lastly, flexbox kind of sucks at making decent responsive grids. Why is it so hard to make a grid with _x_ number of columns on it, with a nice little gap inbetween each item??? 🤦‍♂️
+- If you're like me and use flexbox a lot, you'll be writing the same rules over and over again( ie `display: flex;`, `flex-flow: row nowrap;`, `justify-content: flex-start;`, `align-items: center;`. This can be pretty tedious. 
+- For a layout system, I think that flexbox isn't _at all_ helpful if you're a visual person. While scanning a set of CSS rules, it's sometimes difficult to tell what layout will result from a set of flexbox rules without jumping back into the browser. Wouldn't it be nicer if there was a set of symbols that gave you a general idea of where things are going to go?
+- Flexbox sucks at making decent responsive grids on its own. Why is it so hard to make a grid with _x_ number of columns on it, with a nice little gap inbetween each item??? 🤦‍♂️
 
 ## When should I use Sass-Perch?
 In almost any case that you find yourself using flexbox, _or_ put more technically, when you need a single-axis layout.
