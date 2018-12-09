@@ -4,8 +4,8 @@
 Sass-Perch is an easy-to-learn sass mixin that grabs all of the essentials of flexbox and turns it into a single visual expression. 
 
 ## Why?
-- If you're like me and use flexbox a lot, you'll be writing the same rules over and over again( ie `display: flex;`, `flex-flow: row nowrap;`, `justify-content: flex-start;`, `align-items: center;`. This can be pretty tedious. 
-- For a layout system, I think that flexbox isn't _at all_ helpful if you're a visual person. While scanning a set of CSS rules, it's sometimes difficult to tell what layout will result from a set of flexbox rules without jumping back into the browser. Wouldn't it be nicer if there was a set of symbols that gave you a general idea of where things are going to go?
+- If you're like me and use flexbox a lot, you'll be writing the same rules over and over again( ie `display: flex;`, `flex-flow: row nowrap;`, `justify-content: flex-start;`, `align-items: center;`. This eventually got on my nerves and I wanted to find a quicker solution. 
+- For a layout system, I think that flexbox isn't _at all_ helpful if you're a visual person. While scanning a set of CSS rules, it's sometimes difficult to tell what layout will look like from a set of flexbox rules without jumping back into the browser. Wouldn't it be nice if the code gave you a general idea of where things will go?
 - Flexbox sucks at making decent responsive grids on its own. Why is it so hard to make a grid with _x_ number of columns on it, with a nice little gap inbetween each item??? 🤦‍♂️
 
 ## When should I use Sass-Perch?
@@ -89,11 +89,13 @@ examples:
 - `+==>`
 
 #### The Responsive Grid Modifier `()`
-Sometimes we want a basic grid of items, with equal-width columns that has a gap inbetween each item. This can be a pain with flexbox, as we have to worry about sizing each element, the margin inbetween, ignoring margins using `nth-child`, and so on. Sass-Perch does the heavy lifting for you. All you need to do is add a set of parenthesis to the end of your expression, and pass in the following arguments:
+Sometimes we want a basic grid of items, with x number of columns that has a gap inbetween each item. This can be a pain with flexbox, as we have to worry about sizing each element, the margin inbetween, ignoring margins using `nth-child`, and so on. Sass-Perch does the heavy lifting for you. All you need to do is add a set of parentheses to the end of your expression, and pass in the following arguments:
 (`$number-of-columns`, `$gap`, `$y-gap(optional)`).
 - `$number-of-columns`: the number of equally-sized columns your grid will contain.
 - `$gap`: (as a percent) the horizontal and vertical space between each element. If the `$y-gap` has been specified, this value turns into the horizontal spacing only.
 - `$y-gap`: (optional, as a percent) creates the vertical space between each row.
+
+This modifier is very powerful when you combine it with media queries, giving you a nice responsive grid. Try playing with the `$number-of-columns` argument at different widths to take advantage of screen real estate! 
 
 Some expression examples:
 - `^-->(4 5%)` - *be sure to add the wrap modifier if you want the items to break to the next line.
