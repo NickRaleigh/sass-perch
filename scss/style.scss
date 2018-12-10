@@ -1,11 +1,27 @@
 @import 'perch';
 
+
 .o-article-grid {
+
+  @include perch('^-->', 5, 2%);
+
+  @media(max-width: 1024px) {
+    @include perch('^-->', 3, 3%);
+  }
+
+  @media(max-width: 768px) {
+    @include perch('^-->', 2, 4%);
+  }
+
+  @media(max-width: 768px) {
+  }
+
 }
 
 .o-article {
-  @include perch('+-+');
+  @include perch('_==');
+
+  &__img {
+  }
 }
 
-
-* { border: 1px solid pink;}

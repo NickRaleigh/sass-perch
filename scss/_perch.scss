@@ -1,6 +1,6 @@
 @import 'parse-helper';
 
-@mixin perch($settings) {
+@mixin perch($expression, $blocks:null, $gap:0, $y-gap:null) {
   $flex-direction: false;
   $flex-wrap: false;
   $justify-content: false;
@@ -8,7 +8,7 @@
   $flex-flow: false;
   $generic-flex-basis: false;
 
-  $layout: $settings;
+  $layout: $expression;
 
   // find flex direction: - , = 
   @each $name, $char in $layout {
@@ -129,43 +129,23 @@
     }
   }
 
-    @if (str-index($settings, '(') and str-index($settings, ')')) {
+    @if ( $blocks ) {
         // Remove prefix stuff
-        $parsedSettings: str-replace($settings, $search:'+', $replace: '');
-        $parsedSettings: str-replace($parsedSettings, $search:'_', $replace: '');
-        $parsedSettings: str-replace($parsedSettings, $search:'^', $replace: '');
-        $parsedSettings: str-replace($parsedSettings, $search:'>', $replace: '');
-        $parsedSettings: str-replace($parsedSettings, $search:'<', $replace: '');
-        $parsedSettings: str-replace($parsedSettings, $search:'-', $replace: '');
-        $parsedSettings: str-replace($parsedSettings, $search:'=', $replace: '');
-        $parsedSettings: str-replace($parsedSettings, $search:'|', $replace: '');
-        $parsedSettings: str-replace($parsedSettings, $search:', ', $replace: ' ');
-        $parsedSettings: str-replace($parsedSettings, $search:',', $replace: ' ');
-        $parsedSettings: str-replace($parsedSettings, $search:'(', $replace: '');
-        $parsedSettings: str-replace($parsedSettings, $search:')', $replace: '');
-        $parsedSettings: str-replace($parsedSettings, $search:'~', $replace: '');
-        $parsedSettings: str-replace($parsedSettings, $search:',', $replace: ' ');
-        $parsedSettings: str-replace($parsedSettings, $search:', ', $replace: ' ');
-        $parsedSettings: str-split($parsedSettings, ' ');
 
-        $fluid-this: false;
         $fluid-flex-basis: false;
-        $fluid-column-gap: false;
         $fluid-row-gap: false;
         $fluid-gap-number: false;
         $fluid-columns: false;
 
-        @if (length($parsedSettings) == 3) {
-          $fluid-column-gap: to-number(nth($parsedSettings, 2));
-          $fluid-row-gap: to-number(nth($parsedSettings, 3));
+        $fluid-column-gap: $gap;
+
+        @if ($y-gap) {
+          $fluid-row-gap: $y-gap;
+        } @else {
+          $fluid-row-gap: $gap;
         }
 
-        @elseif (length($parsedSettings) == 2) {
-          $fluid-column-gap: to-number(nth($parsedSettings, 2));
-          $fluid-row-gap: to-number(nth($parsedSettings, 2));
-        }
-      
-        $fluid-columns: to-number(nth($parsedSettings, 1));
+        $fluid-columns: $blocks;
         $fluid-gap-number: to-number($fluid-columns) - 1;
 
         $fluid-flex-basis: ((100% - ($fluid-column-gap * $fluid-gap-number))/$fluid-columns);
