@@ -90,8 +90,9 @@ examples:
 - `+==>`
 
 #### The Responsive Grid Modifier `()`
-Sometimes we want a basic grid of items, with x number of columns that has a gap inbetween each item. This can be a pain with flexbox, as we have to worry about sizing each element, the margin inbetween, ignoring margins using `nth-child`, and so on. Sass-Perch does the heavy lifting for you. All you need to do is add a set of parentheses to the end of your expression, and pass in the following arguments:
-(`$number-of-columns`, `$gap`, `$y-gap(optional)`).
+Sometimes we want a basic grid of items, with x number of columns that has a gap inbetween each item. This can be a pain with flexbox, as we have to worry about sizing each element, the margin inbetween, ignoring margins using `nth-child`, and so on. Sass-Perch does the heavy lifting for you. All you need to do is pass additional arguments to the mixin:
+`@include perch('+==', $number-of-columns, $gap, $y-gap(optional);`
+
 - `$number-of-columns`: the number of equally-sized columns your grid will contain.
 - `$gap`: (as a percent) the horizontal and vertical space between each element. If the `$y-gap` has been specified, this value turns into the horizontal spacing only.
 - `$y-gap`: (optional, as a percent) creates the vertical space between each row.
@@ -99,6 +100,6 @@ Sometimes we want a basic grid of items, with x number of columns that has a gap
 This modifier is very powerful when you combine it with media queries, giving you a nice responsive grid. Try playing with the `$number-of-columns` argument at different widths to take advantage of screen real estate! 
 
 Some expression examples:
-- `^-->(4 5%)` - *be sure to add the wrap modifier if you want the items to break to the next line.
-- `+-->(5, 5%, 8%)` - you can use commas inbetween your arguments if it tickles your fancy. 
-- `^==>(4 2%) - You can even use it on a column layout, just be sure to understand that the `$number-of-columns` argument now processes the number of rows instead.
+- `('^-->', 4, 5%)` - *be sure to add the wrap modifier if you want the items to break to the next line.
+- `('+-->', 5, 5%, 8%)`
+- `('^==>', 4, 2%) - You can even use it on a column layout, just be sure to understand that the `$number-of-columns` argument now processes the number of rows instead.
