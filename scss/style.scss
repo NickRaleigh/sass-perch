@@ -1,27 +1,22 @@
 @import 'perch';
 
+@mixin spring($width) {
+  max-width: $width;
+  width: 100%;
+}
 
 .o-article-grid {
 
-  @include perch('^-->', 5, 2%);
-
-  @media(max-width: 1024px) {
-    @include perch('^-->', 3, 3%);
-  }
-
-  @media(max-width: 768px) {
-    @include perch('^-->', 2, 4%);
-  }
-
-  @media(max-width: 768px) {
-  }
+  @include perch('+-->', (30% 50% 20% 60% 20% 20%), 2%);
 
 }
 
 .o-article {
   @include perch('_==');
+  @include spring(100%);
 
   &__img {
+    @include spring(100%);
   }
 }
 

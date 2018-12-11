@@ -131,42 +131,148 @@
 
     @if ( $blocks ) {
         // Remove prefix stuff
+        @if (type-of($blocks) == number) {
+          $fluid-flex-basis: false;
+          $fluid-row-gap: false;
+          $fluid-gap-number: false;
+          $fluid-column-gap: $gap;
 
-        $fluid-flex-basis: false;
-        $fluid-row-gap: false;
-        $fluid-gap-number: false;
-        $fluid-columns: false;
+          @if ($y-gap) {
+            $fluid-row-gap: $y-gap;
+          } @else {
+            $fluid-row-gap: $gap;
+          }
 
-        $fluid-column-gap: $gap;
+          $fluid-gap-number: to-number($blocks) - 1;
 
-        @if ($y-gap) {
-          $fluid-row-gap: $y-gap;
+          $fluid-flex-basis: ((100% - ($fluid-column-gap * $fluid-gap-number))/$blocks);
+
+          & > * {
+            flex-basis: $fluid-flex-basis;
+            &:nth-child(1n) {
+              margin-right: 0;
+              @if ($fluid-row-gap) {
+                margin-bottom: 0;
+              }
+              & * {
+                max-width: 100%;
+              }
+            }
+            &:not(:nth-child(#{$blocks}n)) {
+              margin-right: $fluid-column-gap;
+              @if ($fluid-row-gap) {
+                margin-bottom: $fluid-row-gap;
+              }
+            }
+          }
         } @else {
-          $fluid-row-gap: $gap;
-        }
+          $column-gap: $gap;
+          $row-gap: false;
+          @if $y-gap { $row-gap: $y-gap; } @else { $row-gap: $gap; }
 
-        $fluid-columns: $blocks;
-        $fluid-gap-number: to-number($fluid-columns) - 1;
+          //find edges
+          $edges: ();
+          $index: 1;
+          $edge-count: false;
+          @each $block in $blocks {
+            @if $edge-count == false {
+              $edge-count: $block;
+            } @else {
+              @if ($edge-count + $block == 100%) {
+                $edges: append($edges, $index);
+                $edge-count: 0;
+              }
+              @elseif ($edge-count + $block > 100%) {
+                $previous: $index - 1;
+                $edges: append($edges, $previous);
+                $edge-count: $block;
+              }
+              @else {
+                $edge-count: $edge-count + $block;
+              }
 
-        $fluid-flex-basis: ((100% - ($fluid-column-gap * $fluid-gap-number))/$fluid-columns);
-
-        & > * {
-          flex-basis: $fluid-flex-basis;
-          &:nth-child(1n) {
-            margin-right: 0;
-            @if ($fluid-row-gap) {
-              margin-bottom: 0;
+              @if ($index == length($blocks)) {
+                $edges: append($edges, $index);
+              }
             }
-            & * {
-              max-width: 100%;
+            $index: $index + 1;
+          }
+
+          // build map of each row
+          $row-number: 1;
+          $total-rows: length($edges);
+          $rows-map: ();
+          $index: 1;
+          $edge-index: 1;
+
+          $current-row: ();
+          @each $block in $blocks {
+            @if $row-number <= length($edges) {
+              $row-end: nth($edges, $edge-index);
+              @if $index == $row-end {
+                $current-row: join($current-row, $block);
+                $rows-map: map-merge($rows-map, ($row-number: $current-row));
+                $edge-index: $edge-index + 1;
+                $row-number: $row-number + 1;
+                $current-row: ();
+              } @else {
+                $current-row: join($current-row, $block);
+              }
+            }
+            $index: $index + 1;
+          }
+
+          // 
+          $nth: 1;
+          @each $row-number, $row in $rows-map {
+            @if length($row) == 1 {
+              & > * {
+                &:nth-child(#{$nth}) {
+                  flex-basis: nth($blocks, $nth);
+                  width: 100%;
+                  @if $gap > 0 {
+                    margin-bottom: $gap;
+                  }
+                }
+              }
+              $nth: $nth + 1;
+            }
+            @else {
+              $last-item: length($row);
+              $number-of-gaps: length($row) - 1;
+              $gap-width: $gap * $number-of-gaps;
+              $remaining-width: 100% - $gap-width;
+              $index: 1;
+              @each $item in $row {
+                $item-width: floor($item / (100% + $gap-width) * 100);
+                & > * {
+                  &:nth-child(#{$nth}) {
+                    flex-basis: $item-width * 1%;
+                    width: 100%;
+                    @if $index != $last-item {
+                      @if $gap > 0 {
+                        margin-right: $gap;
+                      }
+                    }
+                  }
+                }
+                $nth: $nth + 1;
+                $index: $index + 1;
+              }
             }
           }
-          &:not(:nth-child(#{$fluid-columns}n)) {
-            margin-right: $fluid-column-gap;
-            @if ($fluid-row-gap) {
-              margin-bottom: $fluid-row-gap;
-            }
-          }
+
+          // $index: 1;
+
+          // @each $block in $blocks {
+          //   & > * {
+          //     &:nth-child(#{$index}n) {
+          //       flex-basis: $block;
+          //       width: 100%;
+          //     }
+          //   }
+          //   $index: $index + 1;
+          // }
         }
     }
 
