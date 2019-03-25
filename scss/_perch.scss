@@ -1,4 +1,5 @@
 @import 'parse-helper';
+@import 'sass-detect-children';
 
 @mixin perch($expression, $blocks:null, $gap:0, $y-gap:null) {
   $flex-direction: false;
@@ -165,7 +166,65 @@
               }
             }
           }
-        } @else {
+        } 
+        @elseif  (type-of($blocks) == map) {
+          $blockSelector: '';
+          $blockTotal: 0;
+          @each $key, $value in $blocks {
+            $blockTotal: $blockTotal + $value;
+          }
+          @each $key, $value in $blocks {
+            @if (str-index($key, '@')) {
+              $blockSelector: str-replace($key, '@', '&__');
+            } @else {
+              $blockSelector: $key;
+            }
+            $fluid-flex-basis: false;
+            $fluid-row-gap: false;
+            $fluid-gap-number: false;
+            $fluid-column-gap: $gap;
+
+            @if ($y-gap) {
+              $fluid-row-gap: $y-gap;
+            } @else {
+              $fluid-row-gap: $gap;
+            }
+
+            $fluid-gap-number: to-number($blockTotal) - 1;
+
+            $fluid-flex-basis: ((100% - ($fluid-column-gap * $fluid-gap-number))/$blockTotal);
+
+            #{$blockSelector} {
+              flex-basis: $fluid-flex-basis;
+              &:nth-child(1n) {
+                margin-right: 0;
+                @if ($fluid-row-gap) {
+                  margin-bottom: 0;
+                }
+                // & * {
+                //   max-width: 100%;
+                // }
+              }
+              &:not(:nth-child(#{$blockTotal}n)) {
+                margin-right: $fluid-column-gap;
+                @if ($fluid-row-gap) {
+                  margin-bottom: $fluid-row-gap;
+                }
+              }
+          }
+          @if ($y-gap and type-of ($y-gap) == string and str-index($y-gap, '~') ) {
+            @if $y-gap != null {
+              $y-gap: unquote(str-replace($y-gap, '~', ''));
+              #{$blockSelector}~#{$blockSelector} {
+                margin-top: $y-gap;
+              }
+            }
+          }
+        }
+      }
+        @elseif  (type-of($blocks) == map and $flex-wrap == false) {
+        }
+        @else {
           $column-gap: $gap;
           $row-gap: false;
           @if $y-gap { $row-gap: $y-gap; } @else { $row-gap: $gap; }
@@ -252,6 +311,11 @@
                     @if $index != $last-item {
                       @if $gap > 0 {
                         margin-right: $gap;
+                        @if $y-gap == null {
+                          margin-bottom: $gap;
+                        } @else {
+                          margin-bottom: $y-gap;
+                        }
                       }
                     }
                   }

@@ -7,7 +7,20 @@
 
 .o-article-grid {
 
-  @include perch('+-->', (30% 50% 20% 60% 20% 20%), 2%);
+
+@include perch('^-->', ('@item': 5), 3%);
+
+@media(max-width: 1200px)  {
+  @include perch('^-->', ('@item': 4), 3%);
+}
+
+@media(max-width: 1024px)  {
+  @include perch('^-->', ('@item': 3), 3%);
+}
+
+@media(max-width: 767px)  {
+  @include perch('=+=', ('@item': 1), 0, '~6em' );
+}
 
 }
 
