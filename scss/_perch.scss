@@ -97,34 +97,34 @@
     @if ($first-char != '-' and $third-char == '-') {
       $justify-content: flex-start;
     }
-    @elseif ($second-char != '-' and $fourth-char == '') {
+    @else if ($second-char != '-' and $fourth-char == '') {
       $justify-content: center;
     }
-    @elseif ($first-char == '-' and $third-char != '-') {
+    @else if ($first-char == '-' and $third-char != '-') {
       $justify-content: flex-end;
     }
-    @elseif ($first-char != '-' and $third-char != '-' and $fourth-char != '-') {
+    @else if ($first-char != '-' and $third-char != '-' and $fourth-char != '-') {
       $justify-content: space-between;
     }
-    @elseif ($first-char != '-' and $third-char != '-' and $fourth-char =='-') {
+    @else if ($first-char != '-' and $third-char != '-' and $fourth-char =='-') {
       $justify-content: space-around;
     }
   }
 
-  @elseif ($flex-direction == column or $flex-direction == column-reverse) {
+  @else if ($flex-direction == column or $flex-direction == column-reverse) {
     @if ($first-char != '=' and $third-char == '=') {
       $justify-content: flex-start;
     }
-    @elseif ($second-char != '=' and $fourth-char == '') {
+    @else if ($second-char != '=' and $fourth-char == '') {
       $justify-content: center;
     }
-    @elseif ($first-char == '=' and $third-char != '=') {
+    @else if ($first-char == '=' and $third-char != '=') {
       $justify-content: flex-end;
     }
-    @elseif ($first-char != '=' and $third-char != '=' and $fourth-char != '=') {
+    @else if ($first-char != '=' and $third-char != '=' and $fourth-char != '=') {
       $justify-content: space-between;
     }
-    @elseif ($first-char != '=' and $third-char != '=' and $fourth-char =='=') {
+    @else if ($first-char != '=' and $third-char != '=' and $fourth-char =='=') {
       $justify-content: space-around;
     }
   }
@@ -165,7 +165,69 @@
               }
             }
           }
-        } @else {
+        } 
+        @else if  (type-of($blocks) == map) {
+          $blockSelector: '';
+          $blockTotal: 0;
+          @each $key, $value in $blocks {
+            $blockTotal: $blockTotal + $value;
+          }
+          @each $key, $value in $blocks {
+            @if (str-index($key, '@')) {
+              $blockSelector: str-replace($key, '@', '&__');
+            } @else {
+              $blockSelector: $key;
+            }
+            $fluid-flex-basis: false;
+            $fluid-row-gap: false;
+            $fluid-gap-number: false;
+            $fluid-column-gap: $gap;
+
+            @if ($y-gap) {
+              $fluid-row-gap: $y-gap;
+            } @else {
+              $fluid-row-gap: $gap;
+            }
+
+            $fluid-gap-number: to-number($blockTotal) - 1;
+
+            $fluid-flex-basis: ((100% - ($fluid-column-gap * $fluid-gap-number))/$blockTotal);
+
+            #{$blockSelector} {
+              flex-basis: $fluid-flex-basis;
+              &:nth-child(1n) {
+                margin-right: 0;
+                @if ($fluid-row-gap) {
+                  margin-bottom: 0;
+                }
+                // & * {
+                //   max-width: 100%;
+                // }
+              }
+              &:not(:nth-child(#{$blockTotal}n)) {
+                margin-right: $fluid-column-gap;
+                @if ($fluid-row-gap) {
+                  margin-bottom: $fluid-row-gap;
+                }
+              }
+          }
+          @if ($y-gap) {
+            @if (type-of($y-gap) == string) {
+              @if $y-gap != null {
+                @if str-index($y-gap, '~') {
+                  $y-gap: unquote(str-replace($y-gap, '~', ''));
+                  #{$blockSelector}~#{$blockSelector} {
+                    margin-top: $y-gap;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+        @else if  (type-of($blocks) == map and $flex-wrap == false) {
+        }
+        @else {
           $column-gap: $gap;
           $row-gap: false;
           @if $y-gap { $row-gap: $y-gap; } @else { $row-gap: $gap; }
@@ -182,7 +244,7 @@
                 $edges: append($edges, $index);
                 $edge-count: 0;
               }
-              @elseif ($edge-count + $block > 100%) {
+              @else if ($edge-count + $block > 100%) {
                 $previous: $index - 1;
                 $edges: append($edges, $previous);
                 $edge-count: $block;
@@ -252,6 +314,11 @@
                     @if $index != $last-item {
                       @if $gap > 0 {
                         margin-right: $gap;
+                        @if $y-gap == null {
+                          margin-bottom: $gap;
+                        } @else {
+                          margin-bottom: $y-gap;
+                        }
                       }
                     }
                   }
@@ -306,3 +373,4 @@
     }
 
 }
+
