@@ -1,0 +1,6 @@
+// This is different than traject's detect children method.
+@function detect-children($input) {
+  $layout: str-replace($input, '@', '&__');
+  @debug $layout;
+  @return $input;
+}

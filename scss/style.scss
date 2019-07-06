@@ -1,5 +1,25 @@
 @import 'perch';
+@mixin spring($width) {
+  max-width: $width;
+  width: 100%;
+}
 
+.o-article-grid {
+
+
+@include perch('^-->', ('@item': 5), 3%);
+
+@media(max-width: 1200px)  {
+  @include perch('^-->', ('@item': 4), 3%);
+}
+
+@media(max-width: 1024px)  {
+  @include perch('^-->', ('@item': 3), 3%);
+}
+
+@media(max-width: 767px)  {
+  @include perch('=+=', ('@item': 1), 0, '~6em' );
+}
 
 .three-columns {
   @include perch('^-^', ('@column': 3), 3%, 0);

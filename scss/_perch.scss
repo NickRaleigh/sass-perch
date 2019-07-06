@@ -1,4 +1,5 @@
 @import 'parse-helper';
+@import 'sass-detect-children';
 
 @mixin perch($expression, $blocks:null, $gap:0, $y-gap:null) {
   $flex-direction: false;
@@ -15,7 +16,7 @@
     @if (str-index($name, '-')) {
       $flex-direction: row;
     }
-    @else if (str-index($name, '=')) {
+    @elseif (str-index($name, '=')) {
       $flex-direction: column;
       -webkit-box-orient: vertical;
       -webkit-box-direction: normal;
@@ -97,34 +98,34 @@
     @if ($first-char != '-' and $third-char == '-') {
       $justify-content: flex-start;
     }
-    @else if ($second-char != '-' and $fourth-char == '') {
+    @elseif ($second-char != '-' and $fourth-char == '') {
       $justify-content: center;
     }
-    @else if ($first-char == '-' and $third-char != '-') {
+    @elseif ($first-char == '-' and $third-char != '-') {
       $justify-content: flex-end;
     }
-    @else if ($first-char != '-' and $third-char != '-' and $fourth-char != '-') {
+    @elseif ($first-char != '-' and $third-char != '-' and $fourth-char != '-') {
       $justify-content: space-between;
     }
-    @else if ($first-char != '-' and $third-char != '-' and $fourth-char =='-') {
+    @elseif ($first-char != '-' and $third-char != '-' and $fourth-char =='-') {
       $justify-content: space-around;
     }
   }
 
-  @else if ($flex-direction == column or $flex-direction == column-reverse) {
+  @elseif ($flex-direction == column or $flex-direction == column-reverse) {
     @if ($first-char != '=' and $third-char == '=') {
       $justify-content: flex-start;
     }
-    @else if ($second-char != '=' and $fourth-char == '') {
+    @elseif ($second-char != '=' and $fourth-char == '') {
       $justify-content: center;
     }
-    @else if ($first-char == '=' and $third-char != '=') {
+    @elseif ($first-char == '=' and $third-char != '=') {
       $justify-content: flex-end;
     }
-    @else if ($first-char != '=' and $third-char != '=' and $fourth-char != '=') {
+    @elseif ($first-char != '=' and $third-char != '=' and $fourth-char != '=') {
       $justify-content: space-between;
     }
-    @else if ($first-char != '=' and $third-char != '=' and $fourth-char =='=') {
+    @elseif ($first-char != '=' and $third-char != '=' and $fourth-char =='=') {
       $justify-content: space-around;
     }
   }
@@ -166,7 +167,7 @@
             }
           }
         } 
-        @else if  (type-of($blocks) == map) {
+        @elseif  (type-of($blocks) == map) {
           $blockSelector: '';
           $blockTotal: 0;
           @each $key, $value in $blocks {
@@ -225,7 +226,7 @@
           }
         }
       }
-        @else if  (type-of($blocks) == map and $flex-wrap == false) {
+        @elseif  (type-of($blocks) == map and $flex-wrap == false) {
         }
         @else {
           $column-gap: $gap;
@@ -244,7 +245,7 @@
                 $edges: append($edges, $index);
                 $edge-count: 0;
               }
-              @else if ($edge-count + $block > 100%) {
+              @elseif ($edge-count + $block > 100%) {
                 $previous: $index - 1;
                 $edges: append($edges, $previous);
                 $edge-count: $block;
