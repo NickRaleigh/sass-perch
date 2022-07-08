@@ -91,8 +91,9 @@ examples:
 
 #### The Responsive Grid Modifier `()`
 Sometimes we want a basic grid of items, with x number of columns that has a gap inbetween each item. This can be a pain with flexbox, as we have to worry about sizing each element, the margin inbetween, ignoring margins using `nth-child`, and so on. Sass-Perch does the heavy lifting for you. All you need to do is pass additional arguments to the mixin:
-`@include perch('+==', $number-of-columns, $gap, $y-gap(optional);`
+`@include perch('+==', ($children-css-selector: $number-of-columns), $gap, $y-gap(optional);`
 
+- `$children-css-selector`: The css name that each column in the grid will use as reference. Each column should have this css name.
 - `$number-of-columns`: the number of equally-sized columns your grid will contain.
 - `$gap`: (as a percent) the horizontal and vertical space between each element. If the `$y-gap` has been specified, this value turns into the horizontal spacing only.
 - `$y-gap`: (optional, as a percent) creates the vertical space between each row.
