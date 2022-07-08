@@ -101,6 +101,6 @@ Sometimes we want a basic grid of items, with x number of columns that has a gap
 This modifier is very powerful when you combine it with media queries, giving you a nice responsive grid. Try playing with the `$number-of-columns` argument at different widths to take advantage of screen real estate! 
 
 Some expression examples:
-- `('^-->', 4, 5%)` - *be sure to add the wrap modifier if you want the items to break to the next line.
-- `('+-->', 5, 5%, 8%)`
-- `('^==>', 4, 2%) - You can even use it on a column layout, just be sure to understand that the `$number-of-columns` argument now processes the number of rows instead.
+- `('^-->', (.news__column: 4), 5%)` - *be sure to add the wrap modifier if you want the items to break to the next line.
+- `('+-->', (.list__item: 5), 5%, 8%)`
+- `('^==>', (.hero__column: 4), 2%) - You can even use it on a column layout, just be sure to understand that the `$number-of-columns` argument now processes the number of rows instead.
